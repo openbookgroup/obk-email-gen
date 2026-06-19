@@ -260,7 +260,25 @@ function runSelfTests() {
 export default function Home() {
   const [form, setForm] = useState<FormState>(DEFAULT_FORM);
   const [status, setStatus] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [passwordInput, setPasswordInput] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const previewRef = useRef<HTMLDivElement | null>(null);
+
+  const CORRECT_PASSWORD = "openbookemail2026";
+
+  const handlePasswordSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setPasswordError("");
+    
+    if (passwordInput === CORRECT_PASSWORD) {
+      setIsAuthenticated(true);
+      setPasswordInput("");
+    } else {
+      setPasswordError("Palavra passe incorreta. Tente novamente.");
+      setPasswordInput("");
+    }
+  };
 
   const signatureHtml = useMemo(() => buildSignatureHtml(form), [form]);
   const diagnostics = useMemo(() => runSelfTests(), []);
@@ -307,6 +325,45 @@ export default function Home() {
     window.setTimeout(() => setStatus(""), 6000);
   };
 
+
+  if (!isAuthenticated) {
+    return (
+      <main className="page">
+        <div className="shell">
+          <header className="header">
+            <p className="eyebrow">Openbook Group</p>
+            <h1>Email Signature Generator</h1>
+            <p className="subtitle">Última actualização: 19/06/2026</p>
+          </header>
+
+          <section className="main-grid">
+            <div className="panel" style={{ maxWidth: "500px", margin: "0 auto" }}>
+              <form className="form" onSubmit={handlePasswordSubmit}>
+                <div className="field">
+                  <label htmlFor="password">Palavra Passe</label>
+                  <input
+                    id="password"
+                    type="password"
+                    value={passwordInput}
+                    onChange={(event) => setPasswordInput(event.target.value)}
+                    placeholder="Introduza a palavra passe"
+                    autoFocus
+                  />
+                  {passwordError && <p className="field-error">{passwordError}</p>}
+                </div>
+
+                <div className="actions">
+                  <button type="submit" className="button">
+                    Aceder
+                  </button>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="page">
