@@ -345,7 +345,7 @@ export default function Home() {
                     </option>
                   ))}
                 </select>
-                <p className="helper">*consultar cronograma ou RHs para saber cargo correcto</p>
+                <p className="helper">Consultar organograma oficial ou falar com People&Culture para cargo oficial</p>
               </div>
 
               <div className="field">
