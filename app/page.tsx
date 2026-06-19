@@ -265,7 +265,7 @@ export default function Home() {
   const [passwordError, setPasswordError] = useState("");
   const previewRef = useRef<HTMLDivElement | null>(null);
 
-  const CORRECT_PASSWORD = "openbook2026";
+  const CORRECT_PASSWORD = "openbookemail2026";
 
   const handlePasswordSubmit = (e: React.FormEvent) => {
     e.preventDefault();
