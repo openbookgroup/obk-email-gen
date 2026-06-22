@@ -11,6 +11,7 @@ const STATIC_CONFIG = {
   websiteDisplay: "openbook.pt",
   websiteLink: "https://www.openbook.pt",
   bannerUrl: "https://openbook.pt/wp-content/uploads/2026/06/Assinatura_email_AAwards2026.gif",
+  // Se o GIF aparecer pixelizado, considere otimizá-lo ou usar versão WebP/PNG de maior qualidade
   bannerTargetLink: "https://openbook.pt/go",
   bannerAlt: "Openbook Group — Architecture, Studio, Design, Engineering & Real Estate",
   disclaimer:
@@ -157,22 +158,22 @@ function buildSignatureHtml(form: FormState): string {
     <td style="height:9px; line-height:9px; font-size:9px; border:none;">&nbsp;</td>
   </tr>
   <tr>
-    <td style="font-size:8pt; line-height:11pt; color:rgb(130,130,130); font-weight:normal; border:none;">
+    <td style="font-size:8pt; line-height:12pt; color:rgb(130,130,130); font-weight:normal; border:none; padding-bottom:2pt;">
       ${contactLine}
     </td>
   </tr>
   <tr>
-    <td style="font-size:8pt; line-height:11pt; color:rgb(130,130,130); font-weight:normal; border:none;">
+    <td style="font-size:8pt; line-height:12pt; color:rgb(130,130,130); font-weight:normal; border:none; padding-bottom:2pt;">
       <a href="${escapeHtml(STATIC_CONFIG.addressLink)}" style="color:rgb(130,130,130); text-decoration:underline;">${escapeHtml(STATIC_CONFIG.addressLine)}</a>
     </td>
   </tr>
   <tr>
-    <td style="font-size:8pt; line-height:11pt; color:rgb(130,130,130); font-weight:normal; border:none;">
+    <td style="font-size:8pt; line-height:12pt; color:rgb(130,130,130); font-weight:normal; border:none; padding-bottom:2pt;">
       ${escapeHtml(STATIC_CONFIG.postalCodeCity)}
     </td>
   </tr>
   <tr>
-    <td style="font-size:8pt; line-height:11pt; color:rgb(130,130,130); font-weight:normal; border:none;">
+    <td style="font-size:8pt; line-height:12pt; color:rgb(130,130,130); font-weight:normal; border:none;">
       <a href="${escapeHtml(STATIC_CONFIG.websiteLink)}" style="color:rgb(130,130,130); text-decoration:underline;">${escapeHtml(STATIC_CONFIG.websiteDisplay)}</a>
     </td>
   </tr>
