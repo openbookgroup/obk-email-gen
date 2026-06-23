@@ -135,7 +135,11 @@ function buildSignatureHtml(form: FormState): string {
 
   let contactLineHtml: string;
   if (form.omitMobile || !mobileHref) {
-    contactLineHtml = `T: <a href="tel:${escapeHtml(STATIC_CONFIG.phonePlain)}" style="color:rgb(130,130,130); text-decoration:underline;">${escapeHtml(STATIC_CONFIG.phoneDisplay)}</a>`;
+    contactLineHtml = `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; border:none; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+      <tr>
+        <td style="font-size:8pt; line-height:12pt; color:rgb(130,130,130); font-weight:normal; border:none; padding:0;">T: <a href="tel:${escapeHtml(STATIC_CONFIG.phonePlain)}" style="color:rgb(130,130,130); text-decoration:underline;">${escapeHtml(STATIC_CONFIG.phoneDisplay)}</a></td>
+      </tr>
+    </table>`;
   } else {
     contactLineHtml = `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; border:none; mso-table-lspace:0pt; mso-table-rspace:0pt;">
       <tr>
