@@ -152,12 +152,6 @@ function buildSignatureHtml(form: FormState): string {
     <td style="height:9px; line-height:9px; font-size:9px; border:none;">&nbsp;</td>
   </tr>
   <tr>
-    <td style="height:1px; line-height:1px; font-size:1px; background-color:#aaaaaa; border:none; padding:0;">&nbsp;</td>
-  </tr>
-  <tr>
-    <td style="height:9px; line-height:9px; font-size:9px; border:none;">&nbsp;</td>
-  </tr>
-  <tr>
     <td style="font-size:8pt; line-height:12pt; color:rgb(130,130,130); font-weight:normal; border:none; padding-bottom:2pt;">
       ${contactLine}
     </td>
