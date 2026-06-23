@@ -133,9 +133,18 @@ function buildSignatureHtml(form: FormState): string {
   const mobileHref = normalizePhone(form.mobileDisplay);
   const mobileVisible = formatPortugueseMobile(form.mobileDisplay).trim();
 
-  const contactLine = form.omitMobile || !mobileHref
-    ? `T: <a href="tel:${escapeHtml(STATIC_CONFIG.phonePlain)}" style="color:rgb(130,130,130); text-decoration:underline;">${escapeHtml(STATIC_CONFIG.phoneDisplay)}</a>`
-    : `M: <a href="tel:${escapeHtml(mobileHref)}" style="color:rgb(130,130,130); text-decoration:underline;">${escapeHtml(mobileVisible)}</a> | T: <a href="tel:${escapeHtml(STATIC_CONFIG.phonePlain)}" style="color:rgb(130,130,130); text-decoration:underline;">${escapeHtml(STATIC_CONFIG.phoneDisplay)}</a>`;
+  let contactLineHtml: string;
+  if (form.omitMobile || !mobileHref) {
+    contactLineHtml = `T: <a href="tel:${escapeHtml(STATIC_CONFIG.phonePlain)}" style="color:rgb(130,130,130); text-decoration:underline;">${escapeHtml(STATIC_CONFIG.phoneDisplay)}</a>`;
+  } else {
+    contactLineHtml = `<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse; border:none; mso-table-lspace:0pt; mso-table-rspace:0pt;">
+      <tr>
+        <td style="font-size:8pt; line-height:12pt; color:rgb(130,130,130); font-weight:normal; border:none; padding:0;">M: <a href="tel:${escapeHtml(mobileHref)}" style="color:rgb(130,130,130); text-decoration:underline;">${escapeHtml(mobileVisible)}</a></td>
+        <td style="font-size:8pt; line-height:12pt; color:rgb(130,130,130); font-weight:normal; border:none; padding:0 4px;">|</td>
+        <td style="font-size:8pt; line-height:12pt; color:rgb(130,130,130); font-weight:normal; border:none; padding:0;">T: <a href="tel:${escapeHtml(STATIC_CONFIG.phonePlain)}" style="color:rgb(130,130,130); text-decoration:underline;">${escapeHtml(STATIC_CONFIG.phoneDisplay)}</a></td>
+      </tr>
+    </table>`;
+  }
 
   return `<table cellpadding="0" cellspacing="0" border="0" width="500" style="width:100%; max-width:500px; border-collapse:collapse; border:none; mso-table-lspace:0pt; mso-table-rspace:0pt; font-family:Aptos, Arial, Helvetica, sans-serif; color:#000000;">
   <tr>
@@ -152,8 +161,8 @@ function buildSignatureHtml(form: FormState): string {
     <td style="height:9px; line-height:9px; font-size:9px; border:none;">&nbsp;</td>
   </tr>
   <tr>
-    <td style="font-size:8pt; line-height:12pt; color:rgb(130,130,130); font-weight:normal; border:none; padding-bottom:2pt;">
-      ${contactLine}
+    <td style="border:none; padding-bottom:2pt;">
+      ${contactLineHtml}
     </td>
   </tr>
   <tr>
