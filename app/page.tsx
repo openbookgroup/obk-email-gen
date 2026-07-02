@@ -21,6 +21,7 @@ const STATIC_CONFIG = {
 const JOB_TITLES = [
   "Accountant",
   "Architect",
+  "AI & Automation Manager",
   "BIM Coordinator",
   "BIM Manager",
   "BIM Technician",
