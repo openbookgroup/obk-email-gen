@@ -342,7 +342,7 @@ export default function Home() {
           <header className="header">
             <p className="eyebrow">Openbook Group</p>
             <h1>Email Signature Generator</h1>
-            <p className="subtitle">Última actualização: 22/06/2026</p>
+            <p className="subtitle">Última actualização: 2/07/2026</p>
           </header>
 
           <section className="main-grid">
@@ -380,7 +380,7 @@ export default function Home() {
         <header className="header">
           <p className="eyebrow">Openbook Group</p>
           <h1>Email Signature Generator</h1>
-          <p className="subtitle">Última actualização: 22/06/2026</p>
+          <p className="subtitle">Última actualização: 2/07/2026</p>
         </header>
 
         <section className="main-grid">
