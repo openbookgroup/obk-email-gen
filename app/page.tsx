@@ -10,10 +10,9 @@ const STATIC_CONFIG = {
   postalCodeCity: "1070-072 Lisboa",
   websiteDisplay: "openbook.pt",
   websiteLink: "https://www.openbook.pt",
-  bannerUrl: "https://openbook.pt/wp-content/uploads/2026/06/Assinatura_email_AAwards2026.gif",
-  // Se o GIF aparecer pixelizado, considere otimizá-lo ou usar versão WebP/PNG de maior qualidade
+  bannerUrl: "https://openbook.pt/wp-content/uploads/2026/09/Assinatura_email_AAwards2026-V2.0-final.gif",
   bannerTargetLink: "https://openbook.pt/go",
-  bannerAlt: "Openbook Group — Architecture, Studio, Design, Engineering & Real Estate",
+  bannerAlt: "Openbook — A+Awards Winner 2025 & 2026",
   disclaimer:
     "A informação contida nesta mensagem, e os ficheiros anexos, é privilegiada e confidencial, destinando-se exclusivamente ao(s) destinatário(s). The information contained in this message, and any files attached, is privileged and confidential, intended exclusively for the included addresses.",
 };
@@ -59,6 +58,8 @@ const JOB_TITLES = [
   "Real Estate Consultant",
   "Senior Architect",
   "Senior Communications Specialist",
+  "Social Media Manager",
+  "Intern",
   "Senior Designer",
   "Senior Investment Analyst",
   "Senior Visualisation Architect",
@@ -151,7 +152,7 @@ function buildSignatureHtml(form: FormState): string {
     </table>`;
   }
 
-  return `<table cellpadding="0" cellspacing="0" border="0" width="500" style="width:100%; max-width:500px; border-collapse:collapse; border:none; mso-table-lspace:0pt; mso-table-rspace:0pt; font-family:Aptos, Arial, Helvetica, sans-serif; color:#000000;">
+  return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="400" style="width:400px; max-width:100%; border-collapse:collapse; border:0; mso-table-lspace:0pt; mso-table-rspace:0pt; font-family:Aptos, Arial, Helvetica, sans-serif; color:#000000;">
   <tr>
     <td style="font-size:10.5pt; line-height:13.5pt; color:#000000; font-weight:700; border:none;">
       ${escapeHtml(name)}
@@ -186,17 +187,17 @@ function buildSignatureHtml(form: FormState): string {
     </td>
   </tr>
   <tr>
-    <td style="height:14px; line-height:14px; font-size:14px; border:none;">&nbsp;</td>
+      <td height="20" style="height:20px; padding:0; border:0; font-size:20px; line-height:20px; mso-line-height-rule:exactly;">&nbsp;</td>
   </tr>
   <tr>
-    <td style="border:none; line-height:0; font-size:0;">
-      <a href="${escapeHtml(STATIC_CONFIG.bannerTargetLink)}" target="_blank" rel="noopener noreferrer" style="text-decoration:none; border:none; display:block;">
-        <img src="${escapeHtml(STATIC_CONFIG.bannerUrl)}" alt="${escapeHtml(STATIC_CONFIG.bannerAlt)}" width="500" style="display:block; width:100%; max-width:500px; height:auto; border:0;">
+      <td style="padding:0; border:0; font-size:0; line-height:0;">
+      <a href="${escapeHtml(STATIC_CONFIG.bannerTargetLink)}" target="_blank" rel="noopener noreferrer" style="display:block; border:0; text-decoration:none;">
+        <img src="${escapeHtml(STATIC_CONFIG.bannerUrl)}" alt="${escapeHtml(STATIC_CONFIG.bannerAlt)}" width="400" height="140" style="display:block; width:400px; max-width:100%; height:auto; border:0; outline:none; text-decoration:none; background-color:#ffffff; color:#666666; font-family:Aptos, Arial, Helvetica, sans-serif; font-size:10pt; line-height:14pt;">
       </a>
     </td>
   </tr>
   <tr>
-    <td style="height:16px; line-height:16px; font-size:16px; border:none;">&nbsp;</td>
+      <td height="20" style="height:20px; padding:0; border:0; font-size:20px; line-height:20px; mso-line-height-rule:exactly;">&nbsp;</td>
   </tr>
   <tr>
     <td style="font-size:6.75pt; line-height:10pt; color:rgb(165,165,165); border:none;">
@@ -234,8 +235,8 @@ function runSelfTests() {
 
   const tests = [
     {
-      label: "Template responsivo com fallback Outlook width 500",
-      ok: withMobile.includes('width="500"') && withMobile.includes("width:100%; max-width:500px"),
+      label: "Template Outlook com width 400",
+      ok: withMobile.includes('width="400"') && withMobile.includes("width:400px; max-width:100%"),
     },
     {
       label: "Telemóvel omitido quando selecionado",
@@ -251,11 +252,11 @@ function runSelfTests() {
     },
     {
       label: "Cargos BIM normalizados em maiúsculas",
-      ok: JOB_TITLES.includes("BIM Coordinator") && JOB_TITLES.includes("BIM Manager") && JOB_TITLES.includes("BIM Technician"),
+      ok: JOB_TITLES.includes("BIM Coordinator") && JOB_TITLES.includes("BIM Manager") && JOB_TITLES.includes("BIM Technician") && JOB_TITLES.includes("Social Media Manager") && JOB_TITLES.includes("Intern"),
     },
     {
       label: "Banner atualizado",
-      ok: withMobile.includes("/2026/06/Assinatura_email_AAwards2026.gif"),
+      ok: withMobile.includes("/2026/09/Assinatura_email_AAwards2026-V2.0-final.gif") && withMobile.includes('height="140"'),
     },
     {
       label: "Documento HTML completo gerado",
