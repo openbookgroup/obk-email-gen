@@ -416,7 +416,7 @@ export default function Home() {
               </div>
 
               <div className="field">
-                <label htmlFor="mobile">Número Telem��vel (M)</label>
+                <label htmlFor="mobile">Número Telemóvel (M)</label>
                 <input
                   id="mobile"
                   type="text"
