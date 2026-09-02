@@ -10,7 +10,7 @@ const STATIC_CONFIG = {
   postalCodeCity: "1070-072 Lisboa",
   websiteDisplay: "openbook.pt",
   websiteLink: "https://www.openbook.pt",
-  bannerUrl: "https://openbook.pt/wp-content/uploads/2026/09/Assinatura_email_AAwards2026-V2.0-final.gif",
+  bannerUrl: "https://openbook.pt/wp-content/uploads/2026/09/obk-email-banner.gif",
   bannerTargetLink: "https://openbook.pt/go",
   bannerAlt: "Openbook Group | Space x Expertise | Email Banner",
   disclaimer:
@@ -255,7 +255,7 @@ function runSelfTests() {
     },
     {
       label: "Banner proporcional e editável",
-      ok: withMobile.includes("/2026/09/Assinatura_email_AAwards2026-V2.0-final.gif") &&
+      ok: withMobile.includes("/2026/09/obk-email-banner.gif") &&
         buildSignatureHtml({ ...withMobileForm, bannerUrl: "https://example.com/banner.gif" }, 100).includes('width="400" height="100"') &&
         buildSignatureHtml({ ...withMobileForm, bannerUrl: "https://example.com/banner.gif" }, 100).includes("max-height:100px"),
     },
