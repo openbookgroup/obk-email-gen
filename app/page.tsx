@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const STATIC_CONFIG = {
   phoneDisplay: "+351 210 960 610",
@@ -12,7 +12,7 @@ const STATIC_CONFIG = {
   websiteLink: "https://www.openbook.pt",
   bannerUrl: "https://openbook.pt/wp-content/uploads/2026/09/Assinatura_email_AAwards2026-V2.0-final.gif",
   bannerTargetLink: "https://openbook.pt/go",
-  bannerAlt: "Openbook — A+Awards Winner 2025 & 2026",
+  bannerAlt: "Openbook Group | Space x Expertise | Email Banner",
   disclaimer:
     "A informação contida nesta mensagem, e os ficheiros anexos, é privilegiada e confidencial, destinando-se exclusivamente ao(s) destinatário(s). The information contained in this message, and any files attached, is privileged and confidential, intended exclusively for the included addresses.",
 };
@@ -71,6 +71,7 @@ type FormState = {
   jobTitle: string;
   mobileDisplay: string;
   omitMobile: boolean;
+  bannerUrl: string;
 };
 
 const DEFAULT_FORM: FormState = {
@@ -78,6 +79,7 @@ const DEFAULT_FORM: FormState = {
   jobTitle: "",
   mobileDisplay: "+351 ",
   omitMobile: false,
+  bannerUrl: STATIC_CONFIG.bannerUrl,
 };
 
 function escapeHtml(value: unknown): string {
@@ -129,7 +131,7 @@ function formatFilename(value: string): string {
   return cleaned || "openbook-signature";
 }
 
-function buildSignatureHtml(form: FormState): string {
+function buildSignatureHtml(form: FormState, bannerHeight = 140): string {
   const name = form.name.trim() || "Nome Apelido";
   const jobTitle = form.jobTitle.trim() || "Cargo";
   const mobileHref = normalizePhone(form.mobileDisplay);
@@ -192,7 +194,7 @@ function buildSignatureHtml(form: FormState): string {
   <tr>
       <td style="padding:0; border:0; font-size:0; line-height:0;">
       <a href="${escapeHtml(STATIC_CONFIG.bannerTargetLink)}" target="_blank" rel="noopener noreferrer" style="display:block; border:0; text-decoration:none;">
-        <img src="${escapeHtml(STATIC_CONFIG.bannerUrl)}" alt="${escapeHtml(STATIC_CONFIG.bannerAlt)}" width="400" height="140" style="display:block; width:400px; max-width:100%; height:auto; border:0; outline:none; text-decoration:none; background-color:#ffffff; color:#666666; font-family:Aptos, Arial, Helvetica, sans-serif; font-size:10pt; line-height:14pt;">
+        <img src="${escapeHtml(form.bannerUrl)}" alt="${escapeHtml(STATIC_CONFIG.bannerAlt)}" width="400" height="${bannerHeight}" style="display:block; width:400px; max-width:100%; height:auto; max-height:${bannerHeight}px; border:0; outline:none; text-decoration:none; background-color:#ffffff; color:#666666; font-family:Aptos, Arial, Helvetica, sans-serif; font-size:10pt; line-height:14pt;">
       </a>
     </td>
   </tr>
@@ -220,18 +222,15 @@ function buildHtmlDocument(signatureHtml: string): string {
 }
 
 function runSelfTests() {
-  const withMobile = buildSignatureHtml({
+  const withMobileForm: FormState = {
     name: "Luís Macedo",
     jobTitle: "Content Specialist",
     mobileDisplay: "+351 918 925 090",
     omitMobile: false,
-  });
-  const withoutMobile = buildSignatureHtml({
-    name: "Luís Macedo",
-    jobTitle: "Content Specialist",
-    mobileDisplay: "+351 918 925 090",
-    omitMobile: true,
-  });
+    bannerUrl: STATIC_CONFIG.bannerUrl,
+  };
+  const withMobile = buildSignatureHtml(withMobileForm, 140);
+  const withoutMobile = buildSignatureHtml({ ...withMobileForm, omitMobile: true });
 
   const tests = [
     {
@@ -255,8 +254,14 @@ function runSelfTests() {
       ok: JOB_TITLES.includes("BIM Coordinator") && JOB_TITLES.includes("BIM Manager") && JOB_TITLES.includes("BIM Technician") && JOB_TITLES.includes("Social Media Manager") && JOB_TITLES.includes("Intern"),
     },
     {
-      label: "Banner atualizado",
-      ok: withMobile.includes("/2026/09/Assinatura_email_AAwards2026-V2.0-final.gif") && withMobile.includes('height="140"'),
+      label: "Banner proporcional e editável",
+      ok: withMobile.includes("/2026/09/Assinatura_email_AAwards2026-V2.0-final.gif") &&
+        buildSignatureHtml({ ...withMobileForm, bannerUrl: "https://example.com/banner.gif" }, 100).includes('width="400" height="100"') &&
+        buildSignatureHtml({ ...withMobileForm, bannerUrl: "https://example.com/banner.gif" }, 100).includes("max-height:100px"),
+    },
+    {
+      label: "Exemplos de proporção 1000x350 e 1000x250",
+      ok: Math.round(400 * 350 / 1000) === 140 && Math.round(400 * 250 / 1000) === 100,
     },
     {
       label: "Documento HTML completo gerado",
@@ -274,6 +279,21 @@ export default function Home() {
   const [passwordInput, setPasswordInput] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const previewRef = useRef<HTMLDivElement | null>(null);
+  const [bannerHeight, setBannerHeight] = useState(140);
+  const [copyStatus, setCopyStatus] = useState("");
+
+  useEffect(() => {
+    const image = previewRef.current?.querySelector("img");
+    if (!image) return;
+    const updateHeight = () => {
+      if (image.naturalWidth && image.naturalHeight) {
+        setBannerHeight(Math.round(400 * image.naturalHeight / image.naturalWidth));
+      }
+    };
+    image.addEventListener("load", updateHeight);
+    updateHeight();
+    return () => image.removeEventListener("load", updateHeight);
+  }, [form.bannerUrl]);
 
   const CORRECT_PASSWORD = "openbookemail2026";
 
@@ -290,7 +310,7 @@ export default function Home() {
     }
   };
 
-  const signatureHtml = useMemo(() => buildSignatureHtml(form), [form]);
+  const signatureHtml = useMemo(() => buildSignatureHtml(form, bannerHeight), [form, bannerHeight]);
   const diagnostics = useMemo(() => runSelfTests(), []);
   const hasValidMobile = form.omitMobile || isValidPortugueseMobile(form.mobileDisplay);
   const canGenerate = Boolean(form.name.trim() && form.jobTitle.trim() && hasValidMobile);
@@ -307,6 +327,16 @@ export default function Home() {
 
       return { ...current, [key]: value };
     });
+  };
+
+  const copySignatureHtml = async () => {
+    try {
+      await navigator.clipboard.writeText(signatureHtml);
+      setCopyStatus("HTML da assinatura copiado.");
+      window.setTimeout(() => setCopyStatus(""), 4000);
+    } catch {
+      setCopyStatus("Não foi possível copiar automaticamente.");
+    }
   };
 
   const generateHtmlFile = () => {
@@ -416,6 +446,18 @@ export default function Home() {
               </div>
 
               <div className="field">
+                <label htmlFor="banner-url">URL do banner</label>
+                <input
+                  id="banner-url"
+                  type="url"
+                  value={form.bannerUrl}
+                  onChange={(event) => updateForm("bannerUrl", event.target.value)}
+                  placeholder="https://.../banner.gif"
+                />
+                <p className="helper">A altura é calculada automaticamente pela proporção original da imagem.</p>
+              </div>
+
+              <div className="field">
                 <label htmlFor="mobile">Número Telemóvel (M)</label>
                 <input
                   id="mobile"
@@ -449,9 +491,13 @@ export default function Home() {
                 <button type="button" className="button" onClick={generateHtmlFile} disabled={!canGenerate}>
                   Gerar Assinatura
                 </button>
+                <button type="button" className="button secondary" onClick={copySignatureHtml} disabled={!canGenerate}>
+                  Copiar HTML
+                </button>
               </div>
 
               {status ? <div className="status">{status}</div> : null}
+              {copyStatus ? <div className="status">{copyStatus}</div> : null}
             </form>
           </div>
 
