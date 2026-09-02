@@ -446,18 +446,6 @@ export default function Home() {
               </div>
 
               <div className="field">
-                <label htmlFor="banner-url">URL do banner</label>
-                <input
-                  id="banner-url"
-                  type="url"
-                  value={form.bannerUrl}
-                  onChange={(event) => updateForm("bannerUrl", event.target.value)}
-                  placeholder="https://.../banner.gif"
-                />
-                <p className="helper">A altura é calculada automaticamente pela proporção original da imagem.</p>
-              </div>
-
-              <div className="field">
                 <label htmlFor="mobile">Número Telemóvel (M)</label>
                 <input
                   id="mobile"
