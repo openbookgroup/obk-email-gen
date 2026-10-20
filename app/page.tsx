@@ -24,6 +24,7 @@ const JOB_TITLES = [
   "BIM Coordinator",
   "BIM Manager",
   "Brand Manager",
+  "Junior Brand Manager",
   "BIM Technician",
   "Business Development Manager",
   "Data & BI Manager",
