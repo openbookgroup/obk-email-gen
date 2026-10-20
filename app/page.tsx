@@ -10,9 +10,9 @@ const STATIC_CONFIG = {
   postalCodeCity: "1070-072 Lisboa",
   websiteDisplay: "openbook.pt",
   websiteLink: "https://www.openbook.pt",
-  bannerUrl: "https://openbook.pt/wp-content/uploads/2026/09/obk-email-banner.gif",
+  bannerUrl: "https://openbook.pt/wp-content/uploads/2026/10/assinatura-amp-2026-openbook.gif",
   bannerTargetLink: "https://openbook.pt/go",
-  bannerAlt: "Openbook Group | Space x Expertise | Email Banner",
+  bannerAlt: "Openbook Group | Architecture MasterPrize 2026 | Firm of the Year",
   disclaimer:
     "A informação contida nesta mensagem, e os ficheiros anexos, é privilegiada e confidencial, destinando-se exclusivamente ao(s) destinatário(s). The information contained in this message, and any files attached, is privileged and confidential, intended exclusively for the included addresses.",
 };
@@ -180,7 +180,7 @@ function buildSignatureHtml(form: FormState, bannerHeight = 140): string {
   </tr>
   <tr>
     <td style="font-size:8pt; line-height:12pt; color:rgb(130,130,130); font-weight:normal; border:none; padding-bottom:2pt;">
-      ${escapeHtml(STATIC_CONFIG.postalCodeCity)}
+      <a href="${escapeHtml(STATIC_CONFIG.addressLink)}" style="color:rgb(130,130,130); text-decoration:underline;">${escapeHtml(STATIC_CONFIG.postalCodeCity)}</a>
     </td>
   </tr>
   <tr>
@@ -199,7 +199,15 @@ function buildSignatureHtml(form: FormState, bannerHeight = 140): string {
     </td>
   </tr>
   <tr>
-      <td height="20" style="height:20px; padding:0; border:0; font-size:20px; line-height:20px; mso-line-height-rule:exactly;">&nbsp;</td>
+      <td height="12" style="height:12px; padding:0; border:0; font-size:12px; line-height:12px; mso-line-height-rule:exactly;">&nbsp;</td>
+  </tr>
+  <tr>
+    <td style="padding:0; border:0; font-size:8pt; line-height:12pt; mso-line-height-rule:exactly; color:#828282; font-weight:400;">
+      Follow our work up close. <a href="https://zcmp.eu/nlTP" target="_blank" rel="noopener noreferrer" style="color:#000000; font-weight:400; text-decoration:underline;">Subscribe to our newsletter&nbsp;&rsaquo;</a>
+    </td>
+  </tr>
+  <tr>
+      <td height="16" style="height:16px; padding:0; border:0; font-size:16px; line-height:16px; mso-line-height-rule:exactly;">&nbsp;</td>
   </tr>
   <tr>
     <td style="font-size:6.75pt; line-height:10pt; color:rgb(165,165,165); border:none;">
@@ -255,7 +263,7 @@ function runSelfTests() {
     },
     {
       label: "Banner proporcional e editável",
-      ok: withMobile.includes("/2026/09/obk-email-banner.gif") &&
+      ok: withMobile.includes("/2026/10/assinatura-amp-2026-openbook.gif") &&
         buildSignatureHtml({ ...withMobileForm, bannerUrl: "https://example.com/banner.gif" }, 100).includes('width="400" height="100"') &&
         buildSignatureHtml({ ...withMobileForm, bannerUrl: "https://example.com/banner.gif" }, 100).includes("max-height:100px"),
     },
