@@ -194,9 +194,9 @@ function buildSignatureHtml(form: FormState, bannerHeight = 140): string {
       <td height="20" style="height:20px; padding:0; border:0; font-size:20px; line-height:20px; mso-line-height-rule:exactly;">&nbsp;</td>
   </tr>
   <tr>
-      <td style="padding:0; border:0; font-size:0; line-height:0;">
+      <td valign="top" style="padding:0; border:0; font-size:10pt; line-height:${bannerHeight}px; mso-line-height-rule:at-least; vertical-align:top;">
       <a href="${escapeHtml(STATIC_CONFIG.bannerTargetLink)}" target="_blank" rel="noopener noreferrer" style="display:block; border:0; text-decoration:none;">
-        <img src="${escapeHtml(form.bannerUrl)}" alt="${escapeHtml(STATIC_CONFIG.bannerAlt)}" width="400" height="${bannerHeight}" style="display:block; width:400px; max-width:100%; height:auto; max-height:${bannerHeight}px; border:0; outline:none; text-decoration:none; background-color:#ffffff; color:#666666; font-family:Aptos, Arial, Helvetica, sans-serif; font-size:10pt; line-height:14pt;">
+        <img src="${escapeHtml(form.bannerUrl)}" alt="${escapeHtml(STATIC_CONFIG.bannerAlt)}" width="400" height="${bannerHeight}" style="display:block; width:100%; max-width:400px; height:auto; border:0; outline:none; text-decoration:none; background-color:#ffffff; color:#666666; font-family:Aptos, Arial, Helvetica, sans-serif; font-size:10pt; line-height:14pt;">
       </a>
     </td>
   </tr>
@@ -225,9 +225,9 @@ function buildHtmlDocument(signatureHtml: string): string {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Email Signature — Openbook Group</title>
+  <title>Email Signature | Openbook Group</title>
 </head>
-<body style="margin:0; padding:0; background:#ffffff;">${signatureHtml}</body>
+<body style="margin:0; padding:0; background:#ffffff; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;">${signatureHtml}</body>
 </html>`;
 }
 
@@ -265,9 +265,9 @@ function runSelfTests() {
     },
     {
       label: "Banner proporcional e editável",
-      ok: withMobile.includes("/2026/10/assinatura-amp-2026-openbook.gif") &&
+      ok: withMobile.includes("/2026/10/assinatura-email-openbook.gif") &&
         buildSignatureHtml({ ...withMobileForm, bannerUrl: "https://example.com/banner.gif" }, 100).includes('width="400" height="100"') &&
-        buildSignatureHtml({ ...withMobileForm, bannerUrl: "https://example.com/banner.gif" }, 100).includes("max-height:100px"),
+        buildSignatureHtml({ ...withMobileForm, bannerUrl: "https://example.com/banner.gif" }, 100).includes("line-height:100px"),
     },
     {
       label: "Exemplos de proporção 1000x350 e 1000x250",
