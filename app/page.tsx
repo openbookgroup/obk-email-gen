@@ -290,8 +290,6 @@ export default function Home() {
   const [passwordError, setPasswordError] = useState("");
   const previewRef = useRef<HTMLDivElement | null>(null);
   const [bannerHeight, setBannerHeight] = useState(140);
-  const [copyStatus, setCopyStatus] = useState("");
-
   useEffect(() => {
     const image = previewRef.current?.querySelector("img");
     if (!image) return;
@@ -337,16 +335,6 @@ export default function Home() {
 
       return { ...current, [key]: value };
     });
-  };
-
-  const copySignatureHtml = async () => {
-    try {
-      await navigator.clipboard.writeText(signatureHtml);
-      setCopyStatus("HTML da assinatura copiado.");
-      window.setTimeout(() => setCopyStatus(""), 4000);
-    } catch {
-      setCopyStatus("Não foi possível copiar automaticamente.");
-    }
   };
 
   const generateHtmlFile = () => {
@@ -487,15 +475,11 @@ export default function Home() {
 
               <div className="actions">
                 <button type="button" className="button" onClick={generateHtmlFile} disabled={!canGenerate}>
-                  Gerar Assinatura
-                </button>
-                <button type="button" className="button secondary" onClick={copySignatureHtml} disabled={!canGenerate}>
-                  Copiar HTML
+                  Gerar HTML
                 </button>
               </div>
 
               {status ? <div className="status">{status}</div> : null}
-              {copyStatus ? <div className="status">{copyStatus}</div> : null}
             </form>
           </div>
 
