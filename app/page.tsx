@@ -10,9 +10,9 @@ const STATIC_CONFIG = {
   postalCodeCity: "1070-072 Lisboa",
   websiteDisplay: "openbook.pt",
   websiteLink: "https://www.openbook.pt",
-  bannerUrl: "https://openbook.pt/wp-content/uploads/2026/09/obk-email-banner.gif",
+  bannerUrl: "https://openbook.pt/wp-content/uploads/2026/10/assinatura-email-openbook.gif",
   bannerTargetLink: "https://openbook.pt/go",
-  bannerAlt: "Openbook Group | Space x Expertise | Email Banner",
+  bannerAlt: "Openbook Group | Architecture MasterPrize 2026 | Firm of the Year",
   disclaimer:
     "A informação contida nesta mensagem, e os ficheiros anexos, é privilegiada e confidencial, destinando-se exclusivamente ao(s) destinatário(s). The information contained in this message, and any files attached, is privileged and confidential, intended exclusively for the included addresses.",
 };
@@ -23,6 +23,8 @@ const JOB_TITLES = [
   "AI & Automation Manager",
   "BIM Coordinator",
   "BIM Manager",
+  "Brand Manager",
+  "Junior Brand Manager",
   "BIM Technician",
   "Business Development Manager",
   "Data & BI Manager",
@@ -156,17 +158,17 @@ function buildSignatureHtml(form: FormState, bannerHeight = 140): string {
 
   return `<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="400" style="width:400px; max-width:100%; border-collapse:collapse; border:0; mso-table-lspace:0pt; mso-table-rspace:0pt; font-family:Aptos, Arial, Helvetica, sans-serif; color:#000000;">
   <tr>
-    <td style="font-size:10.5pt; line-height:13.5pt; color:#000000; font-weight:700; border:none;">
+    <td style="padding:0; border:0; font-size:10.5pt; line-height:13.5pt; mso-line-height-rule:exactly; color:#000000; font-weight:700;">
       ${escapeHtml(name)}
     </td>
   </tr>
   <tr>
-    <td style="font-size:9pt; line-height:12pt; color:#000000; border:none;">
+    <td style="padding:0; border:0; font-size:9pt; line-height:12pt; mso-line-height-rule:exactly; color:#000000;">
       ${escapeHtml(jobTitle)}
     </td>
   </tr>
   <tr>
-    <td style="height:9px; line-height:9px; font-size:9px; border:none;">&nbsp;</td>
+    <td height="9" style="height:9px; padding:0; border:0; font-size:9px; line-height:9px; mso-line-height-rule:exactly;">&nbsp;</td>
   </tr>
   <tr>
     <td style="border:none; padding-bottom:2pt;">
@@ -174,17 +176,17 @@ function buildSignatureHtml(form: FormState, bannerHeight = 140): string {
     </td>
   </tr>
   <tr>
-    <td style="font-size:8pt; line-height:12pt; color:rgb(130,130,130); font-weight:normal; border:none; padding-bottom:2pt;">
+    <td style="padding:0 0 2pt 0; border:0; font-size:8pt; line-height:12pt; mso-line-height-rule:exactly; color:#828282; font-weight:400;">
       <a href="${escapeHtml(STATIC_CONFIG.addressLink)}" style="color:rgb(130,130,130); text-decoration:underline;">${escapeHtml(STATIC_CONFIG.addressLine)}</a>
     </td>
   </tr>
   <tr>
-    <td style="font-size:8pt; line-height:12pt; color:rgb(130,130,130); font-weight:normal; border:none; padding-bottom:2pt;">
-      ${escapeHtml(STATIC_CONFIG.postalCodeCity)}
+    <td style="padding:0 0 2pt 0; border:0; font-size:8pt; line-height:12pt; mso-line-height-rule:exactly; color:#828282; font-weight:400;">
+      <a href="${escapeHtml(STATIC_CONFIG.addressLink)}" style="color:rgb(130,130,130); text-decoration:underline;">${escapeHtml(STATIC_CONFIG.postalCodeCity)}</a>
     </td>
   </tr>
   <tr>
-    <td style="font-size:8pt; line-height:12pt; color:rgb(130,130,130); font-weight:normal; border:none;">
+    <td style="padding:0; border:0; font-size:8pt; line-height:12pt; mso-line-height-rule:exactly; color:#828282; font-weight:400;">
       <a href="${escapeHtml(STATIC_CONFIG.websiteLink)}" style="color:rgb(130,130,130); text-decoration:underline;">${escapeHtml(STATIC_CONFIG.websiteDisplay)}</a>
     </td>
   </tr>
@@ -199,10 +201,18 @@ function buildSignatureHtml(form: FormState, bannerHeight = 140): string {
     </td>
   </tr>
   <tr>
-      <td height="20" style="height:20px; padding:0; border:0; font-size:20px; line-height:20px; mso-line-height-rule:exactly;">&nbsp;</td>
+      <td height="12" style="height:12px; padding:0; border:0; font-size:12px; line-height:12px; mso-line-height-rule:exactly;">&nbsp;</td>
   </tr>
   <tr>
-    <td style="font-size:6.75pt; line-height:10pt; color:rgb(165,165,165); border:none;">
+    <td style="padding:0; border:0; font-size:8pt; line-height:12pt; mso-line-height-rule:exactly; color:#828282; font-weight:400;">
+      Follow our work up close. <a href="https://zcmp.eu/nlTP" target="_blank" rel="noopener noreferrer" style="color:#000000; font-weight:400; text-decoration:underline;">Subscribe to our newsletter&nbsp;&rsaquo;</a>
+    </td>
+  </tr>
+  <tr>
+      <td height="16" style="height:16px; padding:0; border:0; font-size:16px; line-height:16px; mso-line-height-rule:exactly;">&nbsp;</td>
+  </tr>
+  <tr>
+    <td style="padding:0; border:0; font-size:6.75pt; line-height:10pt; mso-line-height-rule:exactly; color:#a5a5a5;">
       ${escapeHtml(STATIC_CONFIG.disclaimer)}
     </td>
   </tr>
@@ -255,7 +265,7 @@ function runSelfTests() {
     },
     {
       label: "Banner proporcional e editável",
-      ok: withMobile.includes("/2026/09/obk-email-banner.gif") &&
+      ok: withMobile.includes("/2026/10/assinatura-amp-2026-openbook.gif") &&
         buildSignatureHtml({ ...withMobileForm, bannerUrl: "https://example.com/banner.gif" }, 100).includes('width="400" height="100"') &&
         buildSignatureHtml({ ...withMobileForm, bannerUrl: "https://example.com/banner.gif" }, 100).includes("max-height:100px"),
     },
@@ -373,7 +383,7 @@ export default function Home() {
           <header className="header">
             <p className="eyebrow">Openbook Group</p>
             <h1>Email Signature Generator</h1>
-            <p className="subtitle">Última actualização: 3/09/2026</p>
+            <p className="subtitle">Última actualização: 20/10/2026</p>
           </header>
 
           <section className="main-grid">
@@ -411,7 +421,7 @@ export default function Home() {
         <header className="header">
           <p className="eyebrow">Openbook Group</p>
           <h1>Email Signature Generator</h1>
-          <p className="subtitle">Última actualização: 3/09/2026</p>
+          <p className="subtitle">Última actualização: 20/10/2026</p>
         </header>
 
         <section className="main-grid">
