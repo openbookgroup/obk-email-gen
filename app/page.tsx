@@ -10,7 +10,7 @@ const STATIC_CONFIG = {
   postalCodeCity: "1070-072 Lisboa",
   websiteDisplay: "openbook.pt",
   websiteLink: "https://www.openbook.pt",
-  bannerUrl: "https://openbook.pt/wp-content/uploads/2026/10/assinatura-amp-2026-openbook.gif",
+  bannerUrl: "https://openbook.pt/wp-content/uploads/2026/10/assinatura-email-openbook.gif",
   bannerTargetLink: "https://openbook.pt/go",
   bannerAlt: "Openbook Group | Architecture MasterPrize 2026 | Firm of the Year",
   disclaimer:
@@ -23,6 +23,7 @@ const JOB_TITLES = [
   "AI & Automation Manager",
   "BIM Coordinator",
   "BIM Manager",
+  "Brand Manager",
   "BIM Technician",
   "Business Development Manager",
   "Data & BI Manager",
